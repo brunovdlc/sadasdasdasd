@@ -3,128 +3,1494 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    
-    <title>Regras do Chat</title>
-    <link rel="stylesheet" href="regras/style.css">
+    <title>Gabr</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" type="image/x-icon" href="https://u.cubeupload.com/BrunoT/divertido.png" />
     <style>
-        /* Modo noturno por padrão */
+        /* Estilos Gerais */
         body {
-            background-color: #121212;
-            color: #ffffff;
-        }
-
-        .container {
-            background-color: #333;
-            color: #ffffff;
-            border-color: #444;
-        }
-
-        .expanded.active {
-            background-color: #444;
-            border-color: #555;
-        }
-
-        .option-title {
-            background-color: #333;
-            color: #ffffff;
-        }
-
-        .dotted-line {
-            border-top: 1px dotted #ffffff; /* Cor branca no modo noturno */
-        }
-
-        /* Botão para alternar entre modos */
-        .toggle-dark-mode {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            background-color: #000;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: linear-gradient(to bottom, #001040, #000);
             color: #fff;
-            border: none;
-            padding: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .gallery-container {
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        .gallery-title {
+            font-size: 26px;
+            font-weight: bold;
+            color: #fff;
+            text-align: center;
+            margin: 30px 0 10px;
+            border-bottom: 2px solid #fff;
+            padding-bottom: 10px;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        /* Tamanhos Padrão das Imagens */
+        /* GIFs - Verticais e menores */
+        #gifs img {
+            width: 100%;
+            max-width: 120px;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        /* PStyle - Verticais */
+        #pstyle img {
+            width: 100%;
+            max-width: 380px;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        /* PCBacks - Mais quadrados */
+        #pcback img {
+            width: 100%;
+            max-width: 220px;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        /* Fundos - Imagens variáveis */
+        #fundos img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             cursor: pointer;
         }
 
-        .toggle-dark-mode i {
-            margin-right: 5px;
+        .image-container img {
+            transition: transform 0.3s ease;
         }
-    </style>
-</head>
-<body class="dark-mode"> <!-- Ativa o modo noturno por padrão -->
 
-    <button class="toggle-dark-mode" onclick="toggleDarkMode()">
-        <i class="fas fa-sun"></i> Modo Claro
-    </button>
+        .image-container:hover img {
+            transform: scale(1.05);
+        }
 
-    <div class="container">
-        <div class="title-container">
-            <h1>🤖REGRAS</h1>
-            <hr>
-            <p1 style="font-style: italic;">CONCORDAR E SEGUIR REGRAS DO CHAT VTO É ESSENCIAL PARA AMBIENTE RESPEITOSO.</p1>
-            <hr>
-        </div>
+        .overlay, .overlay1 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
 
-        <div class="option">
-            <div class="option-title" onclick="toggleExpand(1)">
-                1. -SPAM / FLOOD:
-                <span class="expand-button"></span>
-            </div>
-            <div class="expanded" id="option1">
-                NÃO É PERMITIDO O ENVIO REPETITIVO E EXCESSIVO DE MENSAGENS (SPAM) OU CARACTERES (FLOOD) QUE ATRAPALHEM A COMUNICAÇÃO NORMAL NO CHAT.
-            </div>
-        </div>
-        <div class="dotted-line"></div>
+        .image-container:hover .overlay, 
+        .image-container:hover .overlay1 {
+            opacity: 1;
+        }
 
-        <div class="option">
-            <div class="option-title" onclick="toggleExpand(2)">
-                2. -CAPS LOCK:
-                <span class="expand-button"></span>
-            </div>
-            <div class="expanded" id="option2">
-               EVITE ESCREVER EM LETRAS MAIÚSCULAS (CAPS LOCK), POIS ISSO É CONSIDERADO COMO GRITAR E PODE CAUSAR LAG AOS OUTROS USUÁRIOS, ALÉM DE SER DESRESPEITOSO.
-            </div>
-        </div>
-        <div class="dotted-line"></div>
+        .overlay1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7); /* Cor semitransparente */
+    color: white; /* Cor do texto */
+    display: flex; /* Para centralizar o texto */
+    align-items: center; /* Centralizar verticalmente */
+    justify-content: center; /* Centralizar horizontalmente */
+    pointer-events: none; /* Permitir cliques através da overlay */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
 
-        <div class="option">
-            <div class="option-title" onclick="toggleExpand(3)">
-                3. -EXPOSIÇÃO DE DADOS:
-                <span class="expand-button"></span>
-            </div>
-            <div class="expanded" id="option3">
-                É ESTRITAMENTE PROIBIDO COMPARTILHAR INFORMAÇÕES PESSOAIS SUAS OU DE OUTRAS PESSOAS, COMO NÚMEROS DE TELEFONE, ENDEREÇOS OU DADOS SENSÍVEIS.
-            </div>
-        </div>
-        <div class="dotted-line"></div>
 
-        <!-- Mais regras podem ser adicionadas aqui conforme necessário -->
+         /* Modal para Zoom */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Adiciona um padding para evitar que a imagem fique colada nas bordas */
+}
 
-    </div>
+.modal-content {
+    max-width: 90%; /* Limita a largura da imagem */
+    max-height: 90%; /* Limita a altura da imagem */
+    margin: auto; /* Centraliza a imagem no modal */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Adiciona sombra ao redor da imagem */
+}
 
-    <script>
-        // Alterna entre modo claro e modo escuro
-        function toggleDarkMode() {
-            document.body.classList.toggle("dark-mode");
-            var button = document.querySelector('.toggle-dark-mode');
-            if (document.body.classList.contains('dark-mode')) {
-                button.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
-            } else {
-                button.innerHTML = '<i class="fas fa-moon"></i> Modo Noturno';
+
+.close {
+            position: absolute;
+            top: 55px;
+            right: 75px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .gallery {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .gallery-title {
+                font-size: 22px;
             }
         }
 
-        // Expande e recolhe as opções
-        function toggleExpand(optionNumber) {
-            var expanded = document.getElementById("option" + optionNumber);
-            expanded.classList.toggle("active");
-        }
-    </script>
+        footer2 {
+    background-color: #000; /* Cor de fundo do rodapé */
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #ccc; /* Linha que separa o rodapé do conteúdo */
+    margin-top: 20px;
+}
+hr {
+    border: none;
+    border-top: 2px solid rgba(255, 255, 255, 0.2); /* Linha com leve transparência */
+    margin: 20px 0;
+}
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+.sobre-mim p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #333; /* Cor do texto */
+}
+
+.sobre-mim {
+    font-family: Arial, sans-serif; /* Define a fonte do texto */
+}
+
+
+ /* Estilo dos botões */
+        .translate-button {
+            background-color: #001; /* Cor de fundo */
+            border: none;
+            color: #ccc; /* Cor do texto */
+            padding: 10px 20px; /* Espaçamento interno */
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 12px; /* Bordas arredondadas */
+            transition: background-color 0.3s ease; /* Transição suave */
+        }
+
+        .translate-button:hover {
+            background-color: #001f3f; /* Cor ao passar o mouse */
+        }
+
+        /* Botão ativo (padrão) */
+        .translate-button.active {
+            background-color: #001f3f;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="gallery-container">
+        <h1>Gif's | PcBack | Pstyle</h1>
+
+        <!-- Galeria GIF -->
+        <div class="gallery-title">NOVOS MODELOS DE GIF - 350 XATS</div>
+        <div class="gallery" id="gifs">
+            <div class="image-container">
+                <img src="https://xatimg.com/image/cescmi2k3NkU.gif" alt="GIF 1">
+                <div class="overlay">N 1</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/Z6ARMBMeU5FJ.gif" alt="GIF 2">
+                <div class="overlay">N 2</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/pkLpLj3nRw9b.gif" alt="GIF 3">
+                <div class="overlay">N 3</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/Lx77c4Og71Wz.gif" alt="GIF 4">
+                <div class="overlay">N 4</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://xatimg.com/image/yrAIMpxxt8m8.gif" alt="GIF 4">
+                <div class="overlay">N 5</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://xatimg.com/image/pM80hG1CQ1Nf.gif" alt="GIF 4">
+                <div class="overlay">N 6</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://xatimg.com/image/0lHDYPsqAz46.gif" alt="GIF 4">
+                <div class="overlay">N 7</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://xatimg.com/image/FfcLLtzv8R59.gif" alt="GIF 4">
+                <div class="overlay">N 8</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://xatimg.com/image/D6g6B53BHsMG.gif" alt="GIF 4">
+                <div class="overlay">N 9</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://xatimg.com/image/w9rY8B7YneHu.gif" alt="GIF 4">
+                <div class="overlay">N 10</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://xatimg.com/image/1DuWfE3jJKPF.gif" alt="GIF 4">
+                <div class="overlay">N 11</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://xatimg.com/image/NKpPnh3RNsma.gif" alt="GIF 4">
+                <div class="overlay">N 12</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://xatimg.com/image/moBv8JawOFc0.gif" alt="GIF 4">
+                <div class="overlay">N 14</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://xatimg.com/image/iG88O4EAH05a.gif" alt="GIF 4">
+                <div class="overlay">N 15</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://xatimg.com/image/sSV9XmohPZYm.gif" alt="GIF 4">
+                <div class="overlay">N 16</div>
+            </div>
+        
+
+        <div class="image-container">
+                <img src="https://xatimg.com/image/9lsEIZxzrh0Y.gif" alt="GIF 4">
+                <div class="overlay">N 17</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://xatimg.com/image/3ofo9Vw0kGuR.gif" alt="GIF 4">
+                <div class="overlay">N 18</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://xatimg.com/image/OfYsoiu7Du3a.gif" alt="GIF 4">
+                <div class="overlay">N 19</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://xatimg.com/image/KxZbWCubjHFN.gif" alt="GIF 4">
+                <div class="overlay">N 20</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://xatimg.com/image/Fsrks05l3VNI.gif" alt="GIF 4">
+                <div class="overlay">N 21</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://xatimg.com/image/EWW7IAa0fsZH.gif" alt="GIF 4">
+                <div class="overlay">N 22</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://xatimg.com/image/SLo6waZPx92X.gif" alt="GIF 4">
+                <div class="overlay">N 23</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://xatimg.com/image/o8DDsJluJww8.gif" alt="GIF 4">
+                <div class="overlay">N 24</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://xatimg.com/image/xOTzRnYUO7LV.gif" alt="GIF 4">
+                <div class="overlay">N 25</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://xatimg.com/image/aNij1VPF5A7P.gif" alt="GIF 4">
+                <div class="overlay">N 26</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://xatimg.com/image/m5j9GA5qCX01.gif" alt="GIF 4">
+                <div class="overlay">N 27</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://xatimg.com/image/CtkX1wQGc1me.gif" alt="GIF 4">
+                <div class="overlay">N 28</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://xatimg.com/image/arTy2BhNZW0j.gif" alt="GIF 4">
+                <div class="overlay">N 29</div>
+            </div>
+        </div>
+
+
+        <!-- GIF 2 --> 
+
+        <div class="gallery-title">NOVO MODELO -NAME 3D +MIRROR EFFECT - 300 XATS</div>
+        <div class="gallery" id="gifs">
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/gabnovoezgifcomwebpt.gif" alt="GIF 1">
+                <div class="overlay"> 1</div>
+            </div>
+             
+         <!-- GIF  -->    
+        </div>
+
+        <div class="gallery-title">MODELO 1| PHOTO + NAME 3D - 250 XATS</div>
+        <div class="gallery" id="gifs">
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/cf0GetImage81ezgifcomwe.gif" alt="GIF 1">
+                <div class="overlay">1</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/506GetImage84ezgifcomwe.gif" alt="GIF 2">
+                <div class="overlay">2</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/62dGetImage82ezgifcomwe.gif" alt="GIF 3">
+                <div class="overlay">3</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/e07GetImage86ezgifcomwe.gif" alt="GIF 1">
+                <div class="overlay">4</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/607GetImage86ezgifcomwe.gif" alt="GIF 2">
+                <div class="overlay">5</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/350GetImage8ezgifcomweb.gif" alt="GIF 3">
+                <div class="overlay">6</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/429GetImage8ezgifcomweb.gif" alt="GIF 1">
+                <div class="overlay">7</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/5b5GetImage82ezgifcomwe.gif" alt="GIF 2">
+                <div class="overlay">8</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/8fdGetImage85ezgifcomwe.gif" alt="GIF 3">
+                <div class="overlay">9</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/b9dGetImage813ezgifcomw.gif" alt="GIF 1">
+                <div class="overlay">10</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/21cGetImage82ezgifcomwe.gif" alt="GIF 2">
+                <div class="overlay">11</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/95dGetImage86ezgifcomwe.gif" alt="GIF 3">
+                <div class="overlay">12</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/446GetImage84ezgifcomwe.gif" alt="GIF 1">
+                <div class="overlay">13</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/84cGetImage816ezgifcomw.gif" alt="GIF 2">
+                <div class="overlay">14</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/3b1GetImage812ezgifcomw.gif" alt="GIF 3">
+                <div class="overlay">15</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/24eGetImage88ezgifcomwe.gif" alt="GIF 1">
+                <div class="overlay">16</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/729GetImage814ezgifcomw.gif" alt="GIF 2">
+                <div class="overlay">17</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/a65GetImage810ezgifcomw.gif" alt="GIF 3">
+                <div class="overlay">18</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/b84GetImage86ezgifcomwe.gif" alt="GIF 1">
+                <div class="overlay">19</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/effGetImage811ezgifcomw.gif" alt="GIF 2">
+                <div class="overlay">20</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/dfeGetImage83ezgifcomwe.gif" alt="GIF 3">
+                <div class="overlay">21</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/22ezgifcomwebptogifc.gif" alt="GIF 1">
+                <div class="overlay">22</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/16ezgifcomwebptogifc.gif" alt="GIF 2">
+                <div class="overlay">23</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/5e2GetImage812ezgifcomw.gif" alt="GIF 3">
+                <div class="overlay">24</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/retrofotoeletraezgif.gif" alt="GIF 3">
+                <div class="overlay">25</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/daniletraefotoezgifc.gif" alt="GIF 3">
+                <div class="overlay">26</div>
+            </div>
+            
+        </div>
+
+        <!-- GIF  -->  
+
+        <div class="gallery-title">MODELO 2 | ONLY NAME 3D EFFECT 1 - 100 XATS</div>
+        <div class="gallery" id="gifs">
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/a81GetImage83ezgifcomwe.gif" alt="GIF 1">
+                <div class="overlay">1</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/339GetImage81ezgifcomwe.gif" alt="GIF 2">
+                <div class="overlay">2</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/297GetImage81ezgifcomwe.gif" alt="GIF 2">
+                <div class="overlay">3</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/abdGetImage810ezgifcomw.gif" alt="GIF 2">
+                <div class="overlay">4</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/d83GetImage87ezgifcomwe.gif" alt="GIF 2">
+                <div class="overlay">5</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/feaGetImage815ezgifcomw.gif" alt="GIF 2">
+                <div class="overlay">6</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/4a6GetImage811ezgifcomw.gif" alt="GIF 2">
+                <div class="overlay">7</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/d07GetImage87ezgifcomwe.gif" alt="GIF 2">
+                <div class="overlay">8</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/acaGetImage84ezgifcomwe.gif" alt="GIF 2">
+                <div class="overlay">9</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/521GetImage813ezgifcomw.gif" alt="GIF 2">
+                <div class="overlay">10</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/b9dGetImage89ezgifcomwe.gif" alt="GIF 2">
+                <div class="overlay">11</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/a14GetImage85ezgifcomwe.gif" alt="GIF 2">
+                <div class="overlay">12</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/570GetImage82ezgifcomwe.gif" alt="GIF 2">
+                <div class="overlay">13</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/GetImage822ezgifcomw.gif" alt="GIF 2">
+                <div class="overlay">14</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/GetImage821ezgifcomw.gif" alt="GIF 2">
+                <div class="overlay">15</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/ae1GetImage815ezgifcomw.gif" alt="GIF 2">
+                <div class="overlay">16</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/9c5GetImage810ezgifcomw.gif" alt="GIF 2">
+                <div class="overlay">17</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/aa415ezgifcomwebptogifc.gif" alt="GIF 2">
+                <div class="overlay">18</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/7ezgifcomwebptogifco.gif" alt="GIF 2">
+                <div class="overlay">19</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/3ezgifcomwebptogifco.gif" alt="GIF 2">
+                <div class="overlay">20</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/5a2GetImage814ezgifcomw.gif" alt="GIF 2">
+                <div class="overlay">21</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/700GetImage811ezgifcomw.gif" alt="GIF 2">
+                <div class="overlay">22</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/4d8GetImage83ezgifcomwe.gif" alt="GIF 2">
+                <div class="overlay">23</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/retroletra2vermezgif.gif" alt="GIF 2">
+                <div class="overlay">24</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/farrucaletra2ezgifco.gif" alt="GIF 2">
+                <div class="overlay">25</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/daniletra2ezgifcomwe.gif" alt="GIF 2">
+                <div class="overlay">26</div>
+            </div>
+
+            
+        </div>
+
+        <!-- GIF  -->  
+
+        <div class="gallery-title">MODELO 3 | ONLY NAME 3D EFFECT 2 - 100 XATS</div>
+        <div class="gallery" id="gifs">
+            <div class="image-container">
+        <img src="https://xatimg.com/image/HeMbDheNqf2Y.gif" alt="GIF 1">
+        <div class="overlay">1</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/e0fGetImage82ezgifcomwe.gif" alt="GIF 2">
+            <div class="overlay">2</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/caeGetImage87ezgifcomwe.gif" alt="GIF 3">
+            <div class="overlay">3</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/1f2GetImage812ezgifcomw.gif" alt="GIF 4">
+            <div class="overlay">4</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/48aGetImage89ezgifcomwe.gif" alt="GIF 5">
+            <div class="overlay">5</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/c8fGetImage83ezgifcomwe.gif" alt="GIF 6">
+            <div class="overlay">6</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/c48GetImage814ezgifcomw.gif" alt="GIF 7">
+            <div class="overlay">7</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/87aGetImage810ezgifcomw.gif" alt="GIF 8">
+            <div class="overlay">8</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/a14GetImage86ezgifcomwe.gif" alt="GIF 9">
+            <div class="overlay">9</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/23eGetImage81ezgifcomwe.gif" alt="GIF 10">
+            <div class="overlay">10</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/384GetImage816ezgifcomw.gif" alt="GIF 11">
+            <div class="overlay">11</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/9e5GetImage812ezgifcomw.gif" alt="GIF 12">
+            <div class="overlay">12</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/38eGetImage88ezgifcomwe.gif" alt="GIF 13">
+            <div class="overlay">13</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/e6cGetImage84ezgifcomwe.gif" alt="GIF 14">
+            <div class="overlay">14</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/d33GetImage81ezgifcomwe.gif" alt="GIF 15">
+            <div class="overlay">15</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/GetImage820ezgifcomw.gif" alt="GIF 16">
+            <div class="overlay">16</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/GetImage819ezgifcomw.gif" alt="GIF 17">
+            <div class="overlay">17</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/8a2GetImage814ezgifcomw.gif" alt="GIF 18">
+            <div class="overlay">18</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/6b5GetImage89ezgifcomwe.gif" alt="GIF 19">
+            <div class="overlay">19</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/6acGetImage81ezgifcomwe.gif" alt="GIF 20">
+            <div class="overlay">20</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/53GetImage85ezgifcomwe.gif" alt="GIF 21">
+            <div class="overlay">21</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/20ezgifcomwebptogifc.gif" alt="GIF 22">
+            <div class="overlay">22</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/18ezgifcomwebptogifc.gif" alt="GIF 23">
+            <div class="overlay">23</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/17ezgifcomwebptogifc.gif" alt="GIF 24">
+            <div class="overlay">24</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/14ezgifcomwebptogifc.gif" alt="GIF 25">
+            <div class="overlay">25</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/9ezgifcomwebptogifco.gif" alt="GIF 26">
+            <div class="overlay">26</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/6ezgifcomwebptogifco.gif" alt="GIF 27">
+            <div class="overlay">27</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/2ezgifcomwebptogifco.gif" alt="GIF 28">
+            <div class="overlay">28</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/767GetImage813ezgifcomw.gif" alt="GIF 29">
+            <div class="overlay">29</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/7b8GetImage810ezgifcomw.gif" alt="GIF 30">
+            <div class="overlay">30</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/76cGetImage82ezgifcomwe.gif" alt="GIF 31">
+            <div class="overlay">31</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/e8dGetImage81ezgifcomwe.gif" alt="GIF 32">
+            <div class="overlay">32</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/retroletra1azulezgif.gif" alt="GIF 33">
+            <div class="overlay">33</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/monteliletra1ezgifco.gif" alt="GIF 34">
+            <div class="overlay">34</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/danielacombezgifcomw.gif" alt="GIF 35">
+            <div class="overlay">35</div>
+        </div>
+
+
+    </div>
+
+    <!-- GIF  -->  
+
+        <div class="gallery-title">MODELO 4 | NAME 3D + 2 EFFECT - 200 XATS</div>
+        <div class="gallery" id="gifs">
+            <div class="image-container">
+            <img src="https://xatimg.com/image/AnCEpzcczEdm.gif" alt="GIF 1">
+            <div class="overlay">1</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/b39GetImage82ezgifcomwe.gif" alt="GIF 2">
+            <div class="overlay">2</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/3ffGetImage81ezgifcomwe.gif" alt="GIF 3">
+            <div class="overlay">3</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/5f2GetImage82ezgifcomwe.gif" alt="GIF 4">
+            <div class="overlay">4</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/6a8GetImage8ezgifcomweb.gif" alt="GIF 5">
+            <div class="overlay">5</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/c52GetImage81ezgifcomwe.gif" alt="GIF 6">
+            <div class="overlay">6</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/a7fGetImage8ezgifcomweb.gif" alt="GIF 7">
+            <div class="overlay">7</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/3a1GetImage811ezgifcomw.gif" alt="GIF 8">
+            <div class="overlay">8</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/53ezgifcomwebptogifc.gif" alt="GIF 9">
+            <div class="overlay">9</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/54ezgifcomwebptogifc.gif" alt="GIF 10">
+            <div class="overlay">10</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/GetImage83ezgifcomwe.gif" alt="GIF 11">
+            <div class="overlay">11</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/876GetImage8ezgifcomweb.gif" alt="GIF 12">
+            <div class="overlay">12</div>
+        </div>
+
+    </div>
+
+    <!-- GIF  -->  
+
+        <div class="gallery-title">MODELO 5 | NAME 3D + 2 EFFECT +BACKGROUND - 300 XATS</div>
+        <div class="gallery" id="gifs">
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/11fGetImage83ezgifcomwe.gif" alt="GIF 1">
+                <div class="overlay">1</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/11GetImage8ezgifcomweb.gif" alt="GIF 2">
+                <div class="overlay">2</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/b52GetImage815ezgifcomw.gif" alt="GIF 3">
+                <div class="overlay">3</div>
+            </div>
+            
+        </div>
+
+        <!-- GIF  -->  
+
+        <div class="gallery-title">MODELO 6 | NAME 3D + PHOTO - 350 XATS</div>
+        <div class="gallery" id="gifs">
+            <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/49ezgifcomwebptogifc.gif" style="width: 80px;" class="img-fluid" alt="GIF 1">
+            <div class="overlay">1</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/59ezgifcomwebptogifc.gif" style="width: 80px;" class="img-fluid" alt="GIF 2">
+                <div class="overlay">2</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/GetImage811ezgifcomw.gif" style="width: 80px;" class="img-fluid" alt="GIF 3">
+                <div class="overlay">3</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/ddbGetImage8ezgifcomweb.gif" style="width: 80px;" class="img-fluid" alt="GIF 4">
+                <div class="overlay">4</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/9a8GetImage8ezgifcomweb.gif" style="width: 80px;" class="img-fluid" alt="GIF 5">
+                <div class="overlay">5</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/9e6GetImage85ezgifcomwe.gif" style="width: 80px;" class="img-fluid" alt="GIF 6">
+                <div class="overlay">6</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/7c4GetImage85ezgifcomwe.gif" style="width: 80px;" class="img-fluid" alt="GIF 7">
+                <div class="overlay">7</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/c84GetImage81ezgifcomwe.gif" style="width: 80px;" class="img-fluid" alt="GIF 8">
+                <div class="overlay">8</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/g91CdM58BEHH.gif" style="width: 80px;" class="img-fluid" alt="GIF 9">
+                <div class="overlay">9</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/8d5GetImage8ezgifcomweb.gif" style="width: 80px;" class="img-fluid" alt="GIF 10">
+                <div class="overlay">10</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/887GetImage811ezgifcomw.gif" style="width: 80px;" class="img-fluid" alt="GIF 11">
+                <div class="overlay">11</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/611GetImage88ezgifcomwe.gif" style="width: 80px;" class="img-fluid" alt="GIF 12">
+                <div class="overlay">12</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/1f3GetImage85ezgifcomwe.gif" style="width: 80px;" class="img-fluid" alt="GIF 13">
+                <div class="overlay">13</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/4feGetImage81ezgifcomwe.gif" style="width: 80px;" class="img-fluid" alt="GIF 14">
+                <div class="overlay">14</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/f89GetImage8ezgifcomweb.gif" style="width: 80px;" class="img-fluid" alt="GIF 15">
+                <div class="overlay">15</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/e47GetImage811ezgifcomw.gif" style="width: 80px;" class="img-fluid" alt="GIF 16">
+                <div class="overlay">16</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/240GetImage88ezgifcomwe.gif" style="width: 80px;" class="img-fluid" alt="GIF 17">
+                <div class="overlay">17</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/19ezgifcomwebptogifc.gif" style="width: 80px;" class="img-fluid" alt="GIF 18">
+                <div class="overlay">18</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/13ezgifcomwebptogifc.gif" style="width: 80px;" class="img-fluid" alt="GIF 19">
+                <div class="overlay">19</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/12ezgifcomwebptogifc.gif" style="width: 80px;" class="img-fluid" alt="GIF 20">
+                <div class="overlay">20</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/daniletra1ezgifcomwe.gif" style="width: 80px;" class="img-fluid" alt="GIF 21">
+                <div class="overlay">21</div>
+            </div>
+
+            
+        </div>
+
+        <!-- GIF  -->  
+
+        <div class="gallery-title">MODELO 7 | 2 PHOTO + NAME 3D - 400 XATS</div>
+        <div class="gallery" id="gifs">
+            <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/58ezgifcomwebptogifc.gif" alt="GIF 1"> 
+            <div class="overlay">1</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/56ezgifcomwebptogifc.gif" alt="GIF 2"> 
+            <div class="overlay">2</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/57ezgifcomwebptogifc.gif" alt="GIF 3"> 
+            <div class="overlay">3</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/55ezgifcomwebptogifc.gif" alt="GIF 4"> 
+            <div class="overlay">4</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/7a3GetImage8ezgifcomweb.gif" alt="GIF 5"> 
+            <div class="overlay">5</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/1d9GetImage8ezgifcomweb.gif" alt="GIF 6"> 
+            <div class="overlay">6</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/3dbGetImage85ezgifcomwe.gif" alt="GIF 7"> 
+            <div class="overlay">7</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/31bGetImage812ezgifcomw.gif" alt="GIF 8"> 
+            <div class="overlay">8</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/f6aGetImage8ezgifcomweb.gif" alt="GIF 9"> 
+            <div class="overlay">9</div>
+        </div>
+
+            
+        </div>
+
+        <!-- GIF  -->  
+
+        <div class="gallery-title">MODELO 8 | PHOTO PARPADEO - 250 XATS</div>
+        <div class="gallery" id="gifs">
+            <div class="image-container">
+            <img src="https://xatimg.com/image/tt8BQt6ObDqH.gif" alt="GIF 1"> 
+            <div class="overlay">1</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/Fotoanimadatie2.gif" alt="GIF 2"> 
+            <div class="overlay">2</div>
+        </div>
+        <div class="image-container">
+            <img src="https://xatimg.com/image/kKeVk6vdZXQE.gif" alt="GIF 3"> 
+            <div class="overlay">3</div>
+        </div>
+        <div class="image-container">
+            <img src="https://xatimg.com/image/bkEgCgAHLu8Z.gif" alt="GIF 4"> 
+            <div class="overlay">4</div>
+        </div>
+        <div class="image-container">
+            <img src="https://xatimg.com/image/Mlb8O9K35WnY.gif" alt="GIF 5"> 
+            <div class="overlay">5</div>
+        </div>
+        <div class="image-container">
+            <img src="https://xatimg.com/image/OzA3zBWdCuwa.gif" alt="GIF 6"> 
+            <div class="overlay">6</div>
+        </div>
+        <div class="image-container">
+            <img src="https://xatimg.com/image/mXbDNavySYDC.gif" alt="GIF 7"> 
+            <div class="overlay">7</div>
+        </div>
+        <div class="image-container">
+            <img src="https://xatimg.com/image/HZu4XSBfIUCO.gif" alt="GIF 8"> 
+            <div class="overlay">8</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/srtaFotoAnimada.gif" alt="GIF 9"> 
+            <div class="overlay">9</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/516Sarafotoanimada.gif" alt="GIF 10"> 
+            <div class="overlay">10</div>
+        </div>
+        <div class="image-container">
+            <img src="https://xatimg.com/image/I5JGprZSM6nr.gif" alt="GIF 11"> 
+            <div class="overlay">11</div>
+        </div>
+        <div class="image-container">
+            <img src="https://xatimg.com/image/qRLf6gULo5up.gif" alt="GIF 12"> 
+            <div class="overlay">12</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/FotoanimadaJhuly3.gif" alt="GIF 13"> 
+            <div class="overlay">13</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/FotoanimadaJordan.gif" alt="GIF 14"> 
+            <div class="overlay">14</div>
+        </div>
+        <div class="image-container">
+            <img src="https://xatimg.com/image/GlwfDCrf3Jd1.gif" alt="GIF 15"> 
+            <div class="overlay">15</div>
+        </div>
+        <div class="image-container">
+            <img src="https://xatimg.com/image/7SiOlNST4YQW.gif" alt="GIF 16"> 
+            <div class="overlay">16</div>
+        </div>
+        <div class="image-container">
+            <img src="https://xatimg.com/image/5nw7X3BQvrJ6.gif" alt="GIF 17"> 
+            <div class="overlay">17</div>
+        </div>
+
+      </div>
+
+      <!-- GIF  -->  
+
+        <div class="gallery-title">MODELO 9 | GIF SIGNATURE + BACKGROUND 200 XATS</div>
+        <div class="gallery" id="gifs">
+            <div class="image-container">
+        <img src="https://xatimg.com/image/dgWsMHTItHgc.gif" alt="GIF 1" style="width: 80px;"> 
+        <div class="overlay">1</div>
+        </div>
+        <div class="image-container">
+            <img src="https://xatimg.com/image/MYafUxxB4gc9.gif" alt="GIF 2" style="width: 80px;"> 
+            <div class="overlay">2</div>
+        </div>
+        <div class="image-container">
+            <img src="https://xatimg.com/image/7vrQkW8po5xV.gif" alt="GIF 3" style="width: 80px;"> 
+            <div class="overlay">3</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/cfGetImage87ezgifcomwe.gif" alt="GIF 4" style="width: 80px;"> 
+            <div class="overlay">4</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/f5aGetImage82ezgifcomwe.gif" alt="GIF 5" style="width: 80px;"> 
+            <div class="overlay">5</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/249GetImage8ezgifcomweb.gif" alt="GIF 6" style="width: 80px;"> 
+            <div class="overlay">6</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/monteliassinaturaezg.gif" alt="GIF 7" style="width: 80px;"> 
+            <div class="overlay">7</div>
+        </div>
+
+    </div>
+
+    <!-- GIF  -->  
+
+        <div class="gallery-title">MODELO 10 | GIF SIGNATURE + FRAME - 300 XATS</div>
+        <div class="gallery" id="gifs">
+            <div class="image-container">
+            <img src="https://xatimg.com/image/xgTK0JEGqTo2.gif" alt="GIF 1" style="width: 80px;"> 
+            <div class="overlay">1</div>
+        </div>
+        <div class="image-container">
+            <img src="https://xatimg.com/image/RZMYvbutyEHm.gif" alt="GIF 2" style="width: 80px;"> 
+            <div class="overlay">2</div>
+        </div>
+        <div class="image-container">
+            <img src="https://xatimg.com/image/yg8fSG05LobD.gif" alt="GIF 3" style="width: 80px;"> 
+            <div class="overlay">3</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/76cGetImage87ezgifcomwe.gif" alt="GIF 4" style="width: 80px;"> 
+            <div class="overlay">4</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/79aGetImage81ezgifcomwe.gif" alt="GIF 5" style="width: 80px;"> 
+            <div class="overlay">5</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/22eGetImage82ezgifcomwe.gif" alt="GIF 6" style="width: 80px;"> 
+            <div class="overlay">6</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/50aGetImage8ezgifcomweb.gif" alt="GIF 7" style="width: 80px;"> 
+            <div class="overlay">7</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/d90GetImage84ezgifcomwe.gif" alt="GIF 8" style="width: 80px;"> 
+            <div class="overlay">8</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/32GetImage81ezgifcomwe.gif" alt="GIF 9" style="width: 80px;"> 
+            <div class="overlay">9</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/ca3GetImage86ezgifcomwe.gif" alt="GIF 10" style="width: 80px;"> 
+            <div class="overlay">10</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/522GetImage82ezgifcomwe.gif" alt="GIF 11" style="width: 80px;"> 
+            <div class="overlay">11</div>
+        </div>
+        <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/17GetImage816ezgifcomw.gif" alt="GIF 12" style="width: 80px;"> 
+            <div class="overlay">12</div>
+        </div>
+
+    </div>
+
+    <!-- GIF  -->  
+
+        <div class="gallery-title">MODELO 11 | NAME 3D + PHOTO + SIGNATURE - 400 XATS</div>
+        <div class="gallery" id="gifs">
+            <div class="image-container">
+            <img src="https://u.cubeupload.com/gifs3d/272GetImage84ezgifcomwe.gif" alt="GIF 1" style="width: 80px;"> 
+            <div class="overlay">1</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/6d6GetImage810ezgifcomw.gif" alt="GIF 2" style="width: 80px;"> 
+                <div class="overlay">2</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/fd4GetImage88ezgifcomwe.gif" alt="GIF 3" style="width: 80px;"> 
+                <div class="overlay">3</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/8f0GetImage83ezgifcomwe.gif" alt="GIF 4" style="width: 80px;"> 
+                <div class="overlay">4</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/692GetImage85ezgifcomwe.gif" alt="GIF 5" style="width: 80px;"> 
+                <div class="overlay">5</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/a89GetImage82ezgifcomwe.gif" alt="GIF 6" style="width: 80px;"> 
+                <div class="overlay">6</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/GetImage818ezgifcomw.gif" alt="GIF 7" style="width: 80px;"> 
+                <div class="overlay">7</div>
+            </div>
+
+            
+        </div>
+
+        <!-- GIF  -->  
+
+        <div class="gallery-title">MODELO 12 | NAME 3D + PHOTO + BACKGROUND - 400 XATS</div>
+        <div class="gallery" id="gifs">
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/1ezgifcomwebptogifco.gif" alt="GIF 1" style="width: 80px;"> 
+                <div class="overlay">1</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/689GetImage85ezgifcomwe.gif" alt="GIF 2" style="width: 80px;"> 
+                <div class="overlay">2</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/adGetImage8ezgifcomweb.gif" alt="GIF 3" style="width: 80px;"> 
+                <div class="overlay">3</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/e7aGetImage82ezgifcomwe.gif" alt="GIF 4" style="width: 80px;"> 
+                <div class="overlay">4</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/ce3GetImage813ezgifcomw.gif" alt="GIF 5" style="width: 80px;"> 
+                <div class="overlay">5</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/d83GetImage89ezgifcomwe.gif" alt="GIF 6" style="width: 80px;"> 
+                <div class="overlay">6</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/da2GetImage85ezgifcomwe.gif" alt="GIF 7" style="width: 80px;"> 
+                <div class="overlay">7</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/78GetImage87ezgifcomwe.gif" alt="GIF 8" style="width: 80px;"> 
+                <div class="overlay">8</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/e9dGetImage83ezgifcomwe.gif" alt="GIF 9" style="width: 80px;"> 
+                <div class="overlay">9</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/fe0GetImage84ezgifcomwe.gif" alt="GIF 10" style="width: 80px;"> 
+                <div class="overlay">10</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/be2GetImage817ezgifcomw.gif" alt="GIF 11" style="width: 80px;"> 
+                <div class="overlay">11</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/5ezgifcomwebptogifco.gif" alt="GIF 12" style="width: 80px;"> 
+                <div class="overlay">12</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/c78GetImage89ezgifcomwe.gif" alt="GIF 13" style="width: 80px;"> 
+                <div class="overlay">13</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/retrocombiezgifcomwe.gif" alt="GIF 14" style="width: 80px;"> 
+                <div class="overlay">14</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/jeeprscombiezgifcomw.gif" alt="GIF 15" style="width: 80px;"> 
+                <div class="overlay">15</div>
+            </div>
+
+     </div>
+
+     <!-- GIF  -->  
+
+
+
+        <!-- Galeria PStyle -->
+        <div class="gallery-title">PStyle</div>
+        <div class="gallery" id="pstyle">
+            <div class="image-container">
+                <img src="https://xatimg.com/image/Fr5yV7innMxL.gif" alt="PStyle 1">
+                <div class="overlay1">1</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/ZARYi4nDjlsE.gif" alt="PStyle 2">
+                <div class="overlay1">2</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/fK5meqm43q8m.gif" alt="PStyle 3">
+                <div class="overlay1">3</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/zfVxJZxgdxF5.gif" alt="PStyle 4">
+                <div class="overlay1">4</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/dcfuvDBNL2EC.gif" alt="PStyle 5">
+                <div class="overlay1">5</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/Otd0FPYuWC3j.gif" alt="PStyle 6">
+                <div class="overlay1">6</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/qMN78BBCb0JU.gif" alt="PStyle 7">
+                <div class="overlay1">7</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/qsZFFiM3VgVr.gif" alt="PStyle 8">
+                <div class="overlay1">8</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/Wc7Xf5RDzDKQ.gif" alt="PStyle 9">
+                <div class="overlay1">9</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/KvQNgUjdjepV.gif" alt="PStyle 10">
+                <div class="overlay1">10</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/BDnFe0frCX6b.gif" alt="PStyle 11">
+                <div class="overlay1">11</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/s2aF0VmHcast.gif" alt="PStyle 12">
+                <div class="overlay1">12</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/kbYme213Cz7v.gif" alt="PStyle 13">
+                <div class="overlay1">13</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/mWAzl1rdJRUL.gif" alt="PStyle 14">
+                <div class="overlay1">14</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/e73Oq3OQHCwD.gif" alt="PStyle 15">
+                <div class="overlay1">15</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/LxBee0jHpBB7.gif" alt="PStyle 16">
+                <div class="overlay1">16</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/jVkl4s2BmALg.gif" alt="PStyle 17">
+                <div class="overlay1">17</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/vpTPOE7PLUSA.gif" alt="PStyle 18">
+                <div class="overlay1">18</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/Pstylehalloween.gif" alt="PStyle 19">
+                <div class="overlay1">19</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/xzBDFh4fY55V.gif" alt="PStyle 20">
+                <div class="overlay1">20</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/GLMlHkX9wHF2.gif" alt="PStyle 21">
+                <div class="overlay1">21</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/CaCrOb9X5Pm1.gif" alt="PStyle 22">
+                <div class="overlay1">22</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/65fuLlchJWGt.gif" alt="PStyle 23">
+                <div class="overlay1">23</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/hWbPB13UkM0q.gif" alt="PStyle 24">
+                <div class="overlay1">24</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/D4S6An8QYYxo.gif" alt="PStyle 25">
+                <div class="overlay1">25</div>
+            </div>
+      </div>
+
+      <!-- GIF  -->  
+
+        <!-- Galeria PCBack -->
+        <div class="gallery-title">PCBack</div>
+        <div class="gallery" id="pcback">
+            <div class="image-container">
+                <img src="https://xatimg.com/image/beXHX8wxZqFL.png" alt="PCBack 1">
+                <div class="overlay1">Modelo 1</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/l1qeWZDKZJnk.png" alt="PCBack 2">
+                <div class="overlay1">Modelo 2</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/Anahalloweenfw.png" alt="PCBack 3">
+                <div class="overlay1">Modelo 3</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/PcbackMarizarosa.png" alt="PCBack 1">
+                <div class="overlay1">Modelo 4</div>
+            </div>
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/pcbackJhuly.png" alt="PCBack 2">
+                <div class="overlay1">Modelo 5</div>
+            </div>
+            
+        </div>
+
+        <!-- GIF  -->  
+
+        <!-- Galeria Fundos de Xat -->
+        <div class="gallery-title">Fundos de Xat</div>
+        <div class="gallery" id="fundos">
+            <div class="image-container">
+                <img src="https://xatimg.com/image/HLFR75YusRHw.png" alt="Fundo 1">
+                <div class="overlay1">Modelo 1</div>
+            </div>
+            <div class="image-container">
+                <img src="https://xatimg.com/image/QM4KvBlJsLwK.png" alt="Fundo 2">
+                <div class="overlay1">Modelo 2</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://xatimg.com/image/B3DBXwkxsJBN.png" alt="Fundo 2">
+                <div class="overlay1">Modelo 3</div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://u.cubeupload.com/gifs3d/pcbackgabrhalloweenf.png" alt="Fundo 2">
+                <div class="overlay1">Modelo 4</div>
+            </div>
+
+             
+        </div>
+    </div>
+
+    <!-- Modal para Zoom -->
+    <!-- Modal para Zoom -->
+<div id="modal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="zoomedImg" alt="Imagem Ampliada">
+</div>
+
+
+    <script>
+     // Script para abrir o modal
+document.querySelectorAll('.image-container img').forEach(image => {
+    image.addEventListener('click', () => {
+        const modal = document.querySelector('.modal');
+        const modalImg = document.querySelector('.modal-content');
+
+        modal.style.display = "flex"; // Altera para flex para centralizar
+        modalImg.src = image.src; // Define a imagem do modal
+    });
+});
+
+// Fechar o modal ao clicar fora da imagem
+const modal = document.querySelector('.modal');
+modal.addEventListener('click', () => {
+    modal.style.display = "none";
+});
+
+
+    // Fechar o modal ao clicar no "x"
+    closeModal.addEventListener('click', function() {
+        modal.style.display = "none";
+    });
+
+// Função para trocar o conteúdo da página com base no idioma
+        function translatePage(language) {
+            var elements = document.querySelectorAll('.text');
+            elements.forEach(function(element) {
+                element.innerText = element.getAttribute('data-' + language);
+            });
+        }
+
+        // Função para ativar o botão selecionado
+        function setActiveButton(button) {
+            var buttons = document.querySelectorAll('.translate-button');
+            buttons.forEach(function(btn) {
+                btn.classList.remove('active'); // Remove a classe 'active' de todos os botões
+            });
+            button.classList.add('active'); // Adiciona a classe 'active' ao botão clicado
+        }
+     
+
+    </script>
+<body onload="translatePage('pt')">
+    <div>
+        <!-- Botões de tradução -->
+        <button class="translate-button active" onclick="setActiveButton(this); translatePage('pt')">Português</button>
+        <button class="translate-button" onclick="setActiveButton(this); translatePage('en')">Inglês</button>
+        <button class="translate-button" onclick="setActiveButton(this); translatePage('es')">Espanhol</button>
+    </div>
+
+    <!-- Conteúdo a ser traduzido -->
+    <div id="content">
+
+        <p class="text" data-pt="Estou sempre no xat RHB | TRADE" data-en="I'm always on xat RHB | TRADE" data-es="Siempre estoy en xat RHB | TRADE"></p>
+        
+        <p class="text" data-pt="Escolha um modelo e me mande no privado, que assim começarei a fazer sua gif" data-en="Choose a model and send me a private message, and I will start making your gif" data-es="Elige un modelo y mándame un mensaje privado, para que empiece a hacer tu gif"></p>
+
+        <p class="text" data-pt="Gabr (182413908)" data-en="Gabr (182413908)" data-es="Gabr (182413908)"></p>
+    </div>
+
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Gabr - Todos os direitos reservados.</p>
+        </div>
+    </footer>
 </body>
 </html>
