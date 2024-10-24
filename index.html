@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <title>Regras do Chat</title>
+    <link rel="stylesheet" href="regras/style.css">
+    <style>
+        /* Modo noturno por padrão */
+        body {
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        .container {
+            background-color: #333;
+            color: #ffffff;
+            border-color: #444;
+        }
+
+        .expanded.active {
+            background-color: #444;
+            border-color: #555;
+        }
+
+        .option-title {
+            background-color: #333;
+            color: #ffffff;
+        }
+
+        .dotted-line {
+            border-top: 1px dotted #ffffff; /* Cor branca no modo noturno */
+        }
+
+        /* Botão para alternar entre modos */
+        .toggle-dark-mode {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .toggle-dark-mode i {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body class="dark-mode"> <!-- Ativa o modo noturno por padrão -->
+
+    <button class="toggle-dark-mode" onclick="toggleDarkMode()">
+        <i class="fas fa-sun"></i> Modo Claro
+    </button>
+
+    <div class="container">
+        <div class="title-container">
+            <h1>🤖REGRAS</h1>
+            <hr>
+            <p1 style="font-style: italic;">CONCORDAR E SEGUIR REGRAS DO CHAT VTO É ESSENCIAL PARA AMBIENTE RESPEITOSO.</p1>
+            <hr>
+        </div>
+
+        <div class="option">
+            <div class="option-title" onclick="toggleExpand(1)">
+                1. -SPAM / FLOOD:
+                <span class="expand-button"></span>
+            </div>
+            <div class="expanded" id="option1">
+                NÃO É PERMITIDO O ENVIO REPETITIVO E EXCESSIVO DE MENSAGENS (SPAM) OU CARACTERES (FLOOD) QUE ATRAPALHEM A COMUNICAÇÃO NORMAL NO CHAT.
+            </div>
+        </div>
+        <div class="dotted-line"></div>
+
+        <div class="option">
+            <div class="option-title" onclick="toggleExpand(2)">
+                2. -CAPS LOCK:
+                <span class="expand-button"></span>
+            </div>
+            <div class="expanded" id="option2">
+               EVITE ESCREVER EM LETRAS MAIÚSCULAS (CAPS LOCK), POIS ISSO É CONSIDERADO COMO GRITAR E PODE CAUSAR LAG AOS OUTROS USUÁRIOS, ALÉM DE SER DESRESPEITOSO.
+            </div>
+        </div>
+        <div class="dotted-line"></div>
+
+        <div class="option">
+            <div class="option-title" onclick="toggleExpand(3)">
+                3. -EXPOSIÇÃO DE DADOS:
+                <span class="expand-button"></span>
+            </div>
+            <div class="expanded" id="option3">
+                É ESTRITAMENTE PROIBIDO COMPARTILHAR INFORMAÇÕES PESSOAIS SUAS OU DE OUTRAS PESSOAS, COMO NÚMEROS DE TELEFONE, ENDEREÇOS OU DADOS SENSÍVEIS.
+            </div>
+        </div>
+        <div class="dotted-line"></div>
+
+        <!-- Mais regras podem ser adicionadas aqui conforme necessário -->
+
+    </div>
+
+    <script>
+        // Alterna entre modo claro e modo escuro
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+            var button = document.querySelector('.toggle-dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                button.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
+            } else {
+                button.innerHTML = '<i class="fas fa-moon"></i> Modo Noturno';
+            }
+        }
+
+        // Expande e recolhe as opções
+        function toggleExpand(optionNumber) {
+            var expanded = document.getElementById("option" + optionNumber);
+            expanded.classList.toggle("active");
+        }
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
